@@ -185,8 +185,9 @@ typedef struct ndpi_flow_info {
   ndpi_protocol detected_protocol;
 
   // Flow data analysis
-  struct ndpi_analyze_struct *iat_c_to_s, *iat_s_to_c, *iat_flow,
-    *pktlen_c_to_s, *pktlen_s_to_c;
+  struct ndpi_analyze_struct
+  	*iat_c_to_s, *iat_s_to_c, *iat_flow,
+    *pktlen_c_to_s, *pktlen_s_to_c, *pktlen;
 
   char info[160];
   char flow_extra_info[16];

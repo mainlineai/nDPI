@@ -591,8 +591,9 @@ void printCSVHeader() {
   fprintf(csv_fp, "iat_s_to_c_min,iat_s_to_c_avg,iat_s_to_c_max,iat_s_to_c_stddev,");
 
   /* Packet Length */
-  fprintf(csv_fp, "pktlen_c_to_s_min,pktlen_c_to_s_avg,pktlen_c_to_s_max,pktlen_c_to_s_stddev,");
-  fprintf(csv_fp, "pktlen_s_to_c_min,pktlen_s_to_c_avg,pktlen_s_to_c_max,pktlen_s_to_c_stddev,");
+  fprintf(csv_fp, "pktlen_c_to_s_min,pktlen_c_to_s_avg,pktlen_c_to_s_max,pktlen_c_to_s_stddev,pktlen_c_to_s_variance,");
+  fprintf(csv_fp, "pktlen_s_to_c_min,pktlen_s_to_c_avg,pktlen_s_to_c_max,pktlen_s_to_c_stddev,pktlen_s_to_c_variance,");
+  fprintf(csv_fp, "pktlen_min,pktlen_avg,pktlen_max,pktlen_stddev,pktlen_variance,");
 
   /* TCP flags */
   fprintf(csv_fp, "cwr,ece,urg,ack,psh,rst,syn,fin,");
@@ -1047,21 +1048,23 @@ static void printFlow(u_int16_t id, struct ndpi_flow_info *flow, u_int16_t threa
     fprintf(csv_fp, "%u,%llu,%llu,", flow->dst2src_packets,
 	    (long long unsigned int) flow->dst2src_bytes, (long long unsigned int) flow->dst2src_goodput_bytes);
     fprintf(csv_fp, "%.3f,%s,", data_ratio, ndpi_data_ratio2str(data_ratio));
-    fprintf(csv_fp, "%.1f,%.1f,", 100.0*((float)flow->src2dst_goodput_bytes / (float)(flow->src2dst_bytes+1)),
+    fprintf(csv_fp, "%.3f,%.3f,", 100.0*((float)flow->src2dst_goodput_bytes / (float)(flow->src2dst_bytes+1)),
 	    100.0*((float)flow->dst2src_goodput_bytes / (float)(flow->dst2src_bytes+1)));
     
     /* IAT (Inter Arrival Time) */
-    fprintf(csv_fp, "%u,%.1f,%u,%.1f,",
+    fprintf(csv_fp, "%u,%.3f,%u,%.3f,",
 	    ndpi_data_min(flow->iat_flow), ndpi_data_average(flow->iat_flow), ndpi_data_max(flow->iat_flow), ndpi_data_stddev(flow->iat_flow));
 
-    fprintf(csv_fp, "%u,%.1f,%u,%.1f,%u,%.1f,%u,%.1f,",
+    fprintf(csv_fp, "%u,%.3f,%u,%.3f,%u,%.3f,%u,%.3f,",
 	    ndpi_data_min(flow->iat_c_to_s), ndpi_data_average(flow->iat_c_to_s), ndpi_data_max(flow->iat_c_to_s), ndpi_data_stddev(flow->iat_c_to_s),
 	    ndpi_data_min(flow->iat_s_to_c), ndpi_data_average(flow->iat_s_to_c), ndpi_data_max(flow->iat_s_to_c), ndpi_data_stddev(flow->iat_s_to_c));
 
     /* Packet Length */
-    fprintf(csv_fp, "%u,%.1f,%u,%.1f,%u,%.1f,%u,%.1f,",
-	    ndpi_data_min(flow->pktlen_c_to_s), ndpi_data_average(flow->pktlen_c_to_s), ndpi_data_max(flow->pktlen_c_to_s), ndpi_data_stddev(flow->pktlen_c_to_s),
-	    ndpi_data_min(flow->pktlen_s_to_c), ndpi_data_average(flow->pktlen_s_to_c), ndpi_data_max(flow->pktlen_s_to_c), ndpi_data_stddev(flow->pktlen_s_to_c));
+    fprintf(csv_fp, "%u,%.3f,%u,%.3f,%.3f,", ndpi_data_min(flow->pktlen), ndpi_data_average(flow->pktlen), ndpi_data_max(flow->pktlen), ndpi_data_stddev(flow->pktlen), ndpi_data_variance(flow->pktlen));
+
+    fprintf(csv_fp, "%u,%.3f,%u,%.3f,%.3f,%u,%.3f,%u,%.3f,%.3f,",
+	    ndpi_data_min(flow->pktlen_c_to_s), ndpi_data_average(flow->pktlen_c_to_s), ndpi_data_max(flow->pktlen_c_to_s), ndpi_data_stddev(flow->pktlen_c_to_s), ndpi_data_variance(flow->pktlen_c_to_s),
+	    ndpi_data_min(flow->pktlen_s_to_c), ndpi_data_average(flow->pktlen_s_to_c), ndpi_data_max(flow->pktlen_s_to_c), ndpi_data_stddev(flow->pktlen_s_to_c), ndpi_data_variance(flow->pktlen_s_to_c));
 
     /* TCP flags */
    fprintf(csv_fp, "%d,%d,%d,%d,%d,%d,%d,%d,", flow->cwr_count, flow->ece_count, flow->urg_count, flow->ack_count, flow->psh_count, flow->rst_count, flow->syn_count, flow->fin_count);

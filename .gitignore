@@ -40,7 +40,6 @@ compile
 *.[o]
 *.obj
 *o.cmd
-*o.cmd
 .project
 .settings
 /src/include/Makefile
@@ -54,3 +53,11 @@ stamp-h1
 *.swp
 /test-driver
 /tests/Makefile
+/src/include/ndpi_api.h
+/fuzz/.deps/
+*.a
+*.so
+*.so.*
+.idea/
+/python/Makefile
+/fuzz/Makefile
