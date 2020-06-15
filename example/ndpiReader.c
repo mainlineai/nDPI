@@ -1091,7 +1091,7 @@ static void printFlow(u_int16_t id, struct ndpi_flow_info *flow, u_int16_t threa
 	    flow->ssh_tls.tls_alpn                  ? flow->ssh_tls.tls_alpn : "",
 	    flow->ssh_tls.tls_supported_versions    ? flow->ssh_tls.tls_supported_versions : "" 
 	    );
-    fprintf(csv_fp, "%s,%s,",
+    fprintf(csv_fp, "\"%s\",\"%s\",",
 	    flow->ssh_tls.tls_issuerDN              ? flow->ssh_tls.tls_issuerDN : "",
 	    flow->ssh_tls.tls_subjectDN             ? flow->ssh_tls.tls_subjectDN : "" 
 	    );

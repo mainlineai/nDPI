@@ -57,7 +57,7 @@
 #define BSTP                   0x42     /* Bridge Spanning Tree Protocol */
 
 /* Keep last 32 packets */
-#define DATA_ANALUYSIS_SLIDING_WINDOW    32
+#define DATA_ANALYSIS_SLIDING_WINDOW    32
 
 /* mask for FCF */
 #define	WIFI_DATA                        0x2    /* 0000 0010 */
@@ -821,12 +821,12 @@ static struct ndpi_flow_info *get_ndpi_flow_info(struct ndpi_workflow * workflow
       newflow->src_ip = iph->saddr, newflow->dst_ip = iph->daddr;
       newflow->src_port = htons(*sport), newflow->dst_port = htons(*dport);
       newflow->ip_version = version;
-      newflow->iat_c_to_s = ndpi_alloc_data_analysis(DATA_ANALUYSIS_SLIDING_WINDOW),
-	newflow->iat_s_to_c =  ndpi_alloc_data_analysis(DATA_ANALUYSIS_SLIDING_WINDOW);
-      newflow->pktlen = ndpi_alloc_data_analysis(DATA_ANALUYSIS_SLIDING_WINDOW);
-      newflow->pktlen_c_to_s = ndpi_alloc_data_analysis(DATA_ANALUYSIS_SLIDING_WINDOW),
-	newflow->pktlen_s_to_c =  ndpi_alloc_data_analysis(DATA_ANALUYSIS_SLIDING_WINDOW),
-	newflow->iat_flow = ndpi_alloc_data_analysis(DATA_ANALUYSIS_SLIDING_WINDOW);
+      newflow->iat_c_to_s = ndpi_alloc_data_analysis(DATA_ANALYSIS_SLIDING_WINDOW),
+	newflow->iat_s_to_c =  ndpi_alloc_data_analysis(DATA_ANALYSIS_SLIDING_WINDOW);
+      newflow->pktlen = ndpi_alloc_data_analysis(DATA_ANALYSIS_SLIDING_WINDOW);
+      newflow->pktlen_c_to_s = ndpi_alloc_data_analysis(DATA_ANALYSIS_SLIDING_WINDOW),
+	newflow->pktlen_s_to_c =  ndpi_alloc_data_analysis(DATA_ANALYSIS_SLIDING_WINDOW),
+	newflow->iat_flow = ndpi_alloc_data_analysis(DATA_ANALYSIS_SLIDING_WINDOW);
 
       if(version == IPVERSION) {
 	inet_ntop(AF_INET, &newflow->src_ip, newflow->src_name, sizeof(newflow->src_name));
@@ -1125,7 +1125,7 @@ void process_ndpi_collected_info(struct ndpi_workflow * workflow, struct ndpi_fl
 
     if(flow->ndpi_flow->protos.stun_ssl.ssl.issuerDN)
       flow->ssh_tls.tls_issuerDN = strdup(flow->ndpi_flow->protos.stun_ssl.ssl.issuerDN);
-    
+
     if(flow->ndpi_flow->protos.stun_ssl.ssl.subjectDN)
       flow->ssh_tls.tls_subjectDN = strdup(flow->ndpi_flow->protos.stun_ssl.ssl.subjectDN);
 

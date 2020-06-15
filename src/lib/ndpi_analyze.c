@@ -110,7 +110,9 @@ float ndpi_data_average(struct ndpi_analyze_struct *s) {
   return((s->num_data_entries == 0) ? 0 : ((float)s->sum_total / (float)s->num_data_entries));
 }
 
-/* Compute the median of all values */
+/* Compute the median of all values
+ * TODO - need to store all packet sizes for this to work.  Sliding window only stores 32 values (DATA_ANALYSIS_SLIDING_WINDOW).
+ **/
 float ndpi_data_median(struct ndpi_analyze_struct *s) {
   if(s->num_data_entries == 0) return 0;
   else {
