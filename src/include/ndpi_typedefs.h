@@ -1474,7 +1474,7 @@ typedef struct {
 struct ndpi_analyze_struct {
   u_int32_t *values;
   u_int32_t min_val, max_val, sum_total, num_data_entries, next_value_insert_index;
-  u_int16_t num_values_array_len /* lenght of the values array */;
+  u_int16_t num_values_array_len /* length of the values array */;
 
   struct {
     /* https://www.johndcook.com/blog/standard_deviation/ */

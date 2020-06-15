@@ -110,6 +110,20 @@ float ndpi_data_average(struct ndpi_analyze_struct *s) {
   return((s->num_data_entries == 0) ? 0 : ((float)s->sum_total / (float)s->num_data_entries));
 }
 
+/* Compute the median of all values */
+float ndpi_data_median(struct ndpi_analyze_struct *s) {
+  if(s->num_data_entries == 0) return 0;
+  else {
+    u_int16_t mid = s->num_values_array_len / 2;
+    u_int32_t *values = s->values + mid;
+    if(s->num_values_array_len % 2 == 0) {
+      return ((float)((*values) + (*(values + 1)))) / 2;
+    } else {
+      return (float)*values;
+    }
+  }
+}
+
 /* ********************************************************************************* */
 
 /* Return min/max on all values */

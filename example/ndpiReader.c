@@ -591,9 +591,9 @@ void printCSVHeader() {
   fprintf(csv_fp, "iat_s_to_c_min,iat_s_to_c_avg,iat_s_to_c_max,iat_s_to_c_stddev,");
 
   /* Packet Length */
+  fprintf(csv_fp, "pktlen_min,pktlen_avg,pktlen_max,pktlen_stddev,pktlen_variance,");
   fprintf(csv_fp, "pktlen_c_to_s_min,pktlen_c_to_s_avg,pktlen_c_to_s_max,pktlen_c_to_s_stddev,pktlen_c_to_s_variance,");
   fprintf(csv_fp, "pktlen_s_to_c_min,pktlen_s_to_c_avg,pktlen_s_to_c_max,pktlen_s_to_c_stddev,pktlen_s_to_c_variance,");
-  fprintf(csv_fp, "pktlen_min,pktlen_avg,pktlen_max,pktlen_stddev,pktlen_variance,");
 
   /* TCP flags */
   fprintf(csv_fp, "cwr,ece,urg,ack,psh,rst,syn,fin,");
